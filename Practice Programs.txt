@@ -1,0 +1,1225 @@
+1. Fibonacci 
+a) Without recursion
+
+import java.util.*;
+
+class Fibonaci {
+
+    static List<Integer> generateFibonacci(int n) {
+        List<Integer> result = new ArrayList<>();
+        if (n <= 0) return result;
+        int a = 1, b = 1;
+        for (int i = 0; i < n; i++) {
+            result.add(a);
+            int c = a + b;
+            a = b;
+            b = c;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the range :");
+        int n = sc.nextInt();
+        List<Integer> seq = generateFibonacci(n);
+        for (int x : seq) {
+            System.out.print(x + " ");
+        }
+        sc.close();
+    }
+}
+
+
+b) With Recursion
+
+import java.util.*;
+
+class Fibonaci_Recursion {
+
+    static int fib(int n) {
+        if (n == 0) return 0;
+        if (n == 1 || n == 2) return 1;
+        return fib(n - 1) + fib(n - 2);
+    }
+
+    static List<Integer> firstN(int n) {
+        List<Integer> res = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            res.add(fib(i));
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the value of n: ");
+        int n = sc.nextInt();
+        if (n <= 0) {
+            System.out.println("Please enter a positive integer.");
+            sc.close();
+            return;
+        }
+        List<Integer> seq = firstN(n);
+        for (int i = 0; i < seq.size(); i++) {
+            System.out.print(seq.get(i));
+            if (i < seq.size() - 1) System.out.print(" ");
+        }
+        sc.close();
+    }
+}
+
+
+2. Prime Numbers
+
+import java.util.*;
+
+class PrimeNumber {
+
+    static boolean isPrime(int num) {
+        if (num <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+    static List<Integer> primesUpTo(int max) {
+        List<Integer> res = new ArrayList<>();
+        for (int num = 2; num <= max; num++) {
+            if (isPrime(num)) res.add(num);
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> primes = primesUpTo(100);
+        for (int p : primes) {
+            System.out.print(p + " ");
+        }
+    }
+}
+
+
+3. Swap Two Numbers without temp variable
+
+import java.util.*;
+
+public class SwapWithoutTemp {
+
+    static int[] swap(int a, int b) {
+	//Using XOR
+        // a=a^b;
+        // b=b^a;
+        // a=a^b;
+        a = a + b;
+        b = a - b;
+        a = a - b;
+        return new int[]{a, b};
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println("Before Swapping: a=" + a + " b=" + b);
+        int[] swapped = swap(a, b);
+        System.out.println("After Swapping: a=" + swapped[0] + " b=" + swapped[1]);
+        sc.close();
+    }
+}
+
+
+
+4. Factorial of a number
+
+a) With recursion
+
+import java.util.Scanner;
+
+class FactorialRecursive {
+
+    static int factorial(int n) {
+        if (n == 0 || n == 1) return 1;
+        return n * factorial(n - 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int n = sc.nextInt();
+        System.out.println("Factorial of " + n + " is: " + factorial(n));
+        sc.close();
+    }
+}
+
+
+
+b) Without recursion
+
+import java.util.*;
+
+class Factorial {
+
+    static int factorialIterative(int n) {
+        int fact = 1;
+        for (int i = 1; i <= n; i++) {
+            fact *= i;
+        }
+        return fact;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the number:");
+        int n = sc.nextInt();
+        System.out.println(factorialIterative(n));
+        sc.close();
+    }
+}
+
+
+5. Reverse a string
+
+import java.util.Scanner;
+
+class ReverseString {
+
+    static String reverse(String str) {
+        char[] chars = str.toCharArray();
+        int left = 0;
+        int right = chars.length - 1;
+        while (left < right) {
+            char temp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = temp;
+            left++;
+            right--;
+        }
+        return new String(chars);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String str = sc.nextLine();
+        System.out.print("Reversed string: " + reverse(str));
+        sc.close();
+    }
+}
+
+
+6. Count the number of vowels and consonants in a given string
+
+import java.util.Scanner;
+
+class VowelConsonantCount {
+
+    static int[] countVowelsConsonants(String str) {
+        int vowels = 0;
+        int consonants = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            boolean isLetter = (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
+            if (isLetter) {
+                boolean isVowel = ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'
+                        || ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U';
+                if (isVowel) vowels++;
+                else consonants++;
+            }
+        }
+        return new int[]{vowels, consonants};
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String str = sc.nextLine();
+        int[] res = countVowelsConsonants(str);
+        System.out.println("Vowels: " + res[0]);
+        System.out.println("Consonants: " + res[1]);
+        sc.close();
+    }
+}
+
+
+7. Check if a given number is a prime number
+
+import java.util.Scanner;
+
+class PrimeNumberCheck {
+
+    static boolean isPrime(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+        if (isPrime(num)) {
+            System.out.println(num + " is a Prime Number");
+        } else {
+            System.out.println(num + " is NOT a Prime Number");
+        }
+        sc.close();
+    }
+}
+
+
+8. Check if a given number is an Armstrong number
+
+import java.util.Scanner;
+
+class ArmstrongNumber {
+
+    static boolean isArmstrong(int num) {
+        int original = num;
+        int temp = num;
+        int digits = 0;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        temp = num;
+        int sum = 0;
+        while (temp != 0) {
+            int digit = temp % 10;
+            int power = 1;
+            for (int i = 0; i < digits; i++) {
+                power *= digit;
+            }
+            sum += power;
+            temp /= 10;
+        }
+        return sum == original;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+        if (isArmstrong(num)) {
+            System.out.println(num + " is an Armstrong number");
+        } else {
+            System.out.println(num + " is NOT an Armstrong number");
+        }
+        sc.close();
+    }
+}
+
+
+9. Sum of digits of a number
+
+import java.util.Scanner;
+
+class SumOfDigits {
+
+    static int sumDigits(int num) {
+        int sum = 0;
+        while (num != 0) {
+            int digit = num % 10;
+            sum += digit;
+            num /= 10;
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+        System.out.println("Sum of digits: " + sumDigits(num));
+        sc.close();
+    }
+}
+
+
+10. Find the largest of three numbers
+
+import java.util.Scanner;
+
+class LargestOfThree {
+
+    static int maxOfThree(int x, int y, int z) {
+        if (x >= y && x >= z) return x;
+        else if (y >= x && y >= z) return y;
+        else return z;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter x: ");
+        int x = sc.nextInt();
+        System.out.print("Enter y: ");
+        int y = sc.nextInt();
+        System.out.print("Enter z: ");
+        int z = sc.nextInt();
+        int largest = maxOfThree(x, y, z);
+        System.out.println(largest + " is the largest number");
+        sc.close();
+    }
+}
+
+
+11. Check if a given number is even or odd
+
+import java.util.Scanner;
+
+class OddEvenCheck {
+
+    static boolean isEven(int num) {
+        return num % 2 == 0;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a Number : ");
+        int num = sc.nextInt();
+        if (isEven(num)) {
+            System.out.println(num + " is an even number");
+        } else {
+            System.out.println(num + " is an odd number");
+        }
+        sc.close();
+    }
+}
+
+
+
+12. Bubble sort
+
+import java.util.Scanner;
+
+class BubbleSort {
+
+    static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            boolean swapped = false;
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            if (!swapped) break;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        bubbleSort(arr);
+        System.out.println("Sorted array:");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        sc.close();
+    }
+}
+
+
+13. Linear Search
+
+import java.util.Scanner;
+
+class LinearSearch {
+
+    static int linearSearch(int[] arr, int key) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key) return i;
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        System.out.println("Enter elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        System.out.print("Enter element to search: ");
+        int key = sc.nextInt();
+        int index = linearSearch(arr, key);
+        if (index != -1) {
+            System.out.println(key + " found at index " + index);
+        } else {
+            System.out.println(key + " not found in the array");
+        }
+        sc.close();
+    }
+}
+
+
+
+OOP's Programs                                                                                                          
+------------------------------------------------------------------------------------------------------------------------
+14. 
+
+abstract class Shape {
+    public abstract double calculateArea();
+}
+
+class Circle extends Shape {
+    private double radius;
+    
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+    @Override
+    public double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+class Rectangle extends Shape {
+    private double width;
+    private double length;
+    public Rectangle(double width, double length) {
+        this.width = width;
+        this.length = length;
+    }
+    @Override
+    public double calculateArea() {
+        return width * length; 
+    }
+}
+
+class Triangle extends Shape {
+    private double base;
+    private double height;
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+    @Override
+    public double calculateArea() {
+        return 0.5 * base * height; 
+    }
+}
+
+public class ShapeAreaDemo {
+    public static void main(String[] args) {
+        Shape circle = new Circle(5.0);         
+        Shape rectangle = new Rectangle(4.0, 6.0); 
+        Shape triangle = new Triangle(3.0, 8.0);   
+
+        System.out.printf("Circle area: %.4f%n", circle.calculateArea());
+        System.out.printf("Rectangle area: %.4f%n", rectangle.calculateArea());
+        System.out.printf("Triangle area: %.4f%n", triangle.calculateArea());
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+15.
+
+class Animal {
+    public void makeSound() {
+        System.out.println("Some sound"); 
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Bark");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow");
+    }
+}
+
+public class AnimalSoundDemo {
+    public static void main(String[] args) {
+        Animal genericAnimal = new Animal();
+        Animal dog = new Dog();
+        Animal cat = new Cat();
+
+        genericAnimal.makeSound(); 
+        dog.makeSound();           
+        cat.makeSound();           
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+16.
+
+class Sport {
+    public void play() {
+        System.out.println("Playing a sport");
+    }
+}
+
+class Football extends Sport {
+    @Override
+    public void play() {
+        System.out.println("Playing Football");
+    }
+}
+
+
+class Basketball extends Sport {
+    @Override
+    public void play() {
+        System.out.println("Playing Basketball");
+    }
+}
+
+
+class Tennis extends Sport {
+    @Override
+    public void play() {
+        System.out.println("Playing Tennis"); 
+    }
+}
+
+
+public class SportDemo {
+    public static void main(String[] args) {
+        Sport genericSport = new Sport();
+        Sport football = new Football();
+        Sport basketball = new Basketball();
+        Sport tennis = new Tennis();
+
+        genericSport.play();   
+        football.play();        
+        basketball.play();      
+        tennis.play();          
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+17.
+
+abstract class Vehicle {
+    public abstract void startEngine();
+    public abstract void stopEngine();
+}
+
+class Car extends Vehicle {
+    @Override
+    public void startEngine() {
+        System.out.println("Car engine started");
+    }
+
+    @Override
+    public void stopEngine() {
+        System.out.println("Car engine stopped");
+    }
+}
+
+class Motorcycle extends Vehicle {
+    @Override
+    public void startEngine() {
+        System.out.println("MotorCycle engine started");
+    }
+
+    @Override
+    public void stopEngine() {
+        System.out.println("MotorCycle engine stopped");
+    }
+}
+
+public class VehicleDemo {
+    public static void main(String[] args) {
+        Vehicle car = new Car();
+        Vehicle bike = new Motorcycle();
+
+        car.startEngine();  
+        car.stopEngine();   
+
+        bike.startEngine(); 
+        bike.stopEngine();      }
+}
+
+
+
+Exception Handling                                                                                                      
+------------------------------------------------------------------------------------------------------------------------
+18.
+
+class InvalidAgeException extends Exception 
+{
+    public InvalidAgeException(String message) 
+    {
+        super(message);
+    }
+}
+
+public class InvalidAgeExceptionExample
+{
+    public static void validateAge(int age) throws InvalidAgeException 
+    {
+        if (age < 18) 
+        {
+            throw new InvalidAgeException("Age must be at least 18 to register.");
+        }
+        System.out.println("Registration successful. Age:" + age);
+    }
+
+    public static void main(String[] args) 
+    {
+        try 
+        {
+            int age = 15;
+            validateAge(age);
+        } 
+        catch (InvalidAgeException e) 
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+19.
+
+class InsufficientFundsException extends Exception 
+{
+    public InsufficientFundsException(String message) 
+    {
+        super(message);
+    }
+}
+
+public class InsufficientFundsExceptionExample 
+{
+    static double savings = 1500.78;
+
+    public static void withdraw(double savings,double withdrawalAmount) throws InsufficientFundsException 
+    {
+        if (withdrawalAmount > savings) 
+        {
+            throw new InsufficientFundsException("You doesn't have specified amount in your Savings account.");
+        }
+        savings-=withdrawalAmount;
+        System.out.println("withdrawal successful : " +withdrawalAmount );
+        savings=(Math.round(savings * 100.0)) / 100.0;
+        System.out.println("Remaining : "+savings);
+    }
+
+    public static void main(String[] args) 
+    {
+        try 
+        {
+            double withdrawalAmount = 1412.12345;
+            withdraw(savings,withdrawalAmount);
+        } 
+        catch (InsufficientFundsException e) 
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------
+20.
+
+import java.util.regex.Pattern;
+
+class InvalidEmailException extends Exception 
+{
+    public InvalidEmailException(String message) 
+    {
+        super(message);
+    }
+}
+
+public class InvalidEmailExceptionExample 
+{
+    public static void validate(String email) throws InvalidEmailException 
+    {
+        Pattern ptr=Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+        if (!ptr.matcher(email).matches()) 
+        {
+                throw new InvalidEmailException("Enter a valid Email");
+        }
+        System.out.println("You can proceed to further steps");
+
+    }
+
+    public static void main(String[] args) 
+    {
+        try 
+        {
+            String str="ajay@gmail";
+            validate(str);
+        } 
+        catch (InvalidEmailException e) 
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+21.
+
+class NegativeNumberException extends Exception 
+{
+    public NegativeNumberException(String message) 
+    {
+        super(message);
+    }
+}
+
+public class NegativeNumberExceptionExample
+{
+    public static void square(int number) throws NegativeNumberException 
+    {
+        if (number<0) 
+        {
+            throw new NegativeNumberException("Enter a positive number");
+        }
+        System.out.println(number*number);
+
+    }
+
+    public static void main(String[] args) 
+    {
+        try 
+        {
+            int number=5;
+            square(number);
+        } 
+        catch (NegativeNumberException e) 
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+
+Collections                                                                                                             
+------------------------------------------------------------------------------------------------------------------------
+22.
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+
+class RemoveDuplicates
+{
+    public void removeDuplicates(ArrayList<Integer> al)
+    {
+        LinkedHashSet<Integer> set = new LinkedHashSet<>(al);
+        al.clear();
+        al.addAll(set);
+        
+        System.out.println(al);
+    }
+}
+
+class Main
+{
+    public static void main(String a[])
+    {
+        ArrayList<Integer> al=new ArrayList<>();
+        al.add(1);
+        al.add(2);
+        al.add(3);
+        al.add(2);
+        al.add(3);
+        al.add(1);
+        
+        RemoveDuplicates rd= new RemoveDuplicates();
+        rd.removeDuplicates(al);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+23.
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+class ElementFrequency
+{
+    public void countFrequency(ArrayList<Integer> al)
+    {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(Integer i:al)
+        {
+            // if(map.containsKey(i))
+            // {
+            //     map.put(i,map.get(i)+1);
+            // }
+            // else
+            //     map.put(i,1);
+
+            map.put(i,map.getOrDefault(i,0)+1);
+        }
+
+        System.out.println(map);
+    }
+}
+
+class Main
+{
+    public static void main(String a[])
+    {
+        ArrayList<Integer> al=new ArrayList<>();
+        al.add(1);
+        al.add(2);
+        al.add(3);
+        al.add(2);
+        al.add(3);
+        al.add(1);
+        al.add(4);
+        al.add(5);
+        
+        ElementFrequency rd= new ElementFrequency();
+        rd.countFrequency(al);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+24.
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+class ElementFrequency
+{
+    public void countFrequency(ArrayList<Integer> al)
+    {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(Integer i:al)
+        {
+            map.put(i,map.getOrDefault(i,0)+1);
+        }
+        
+        Set<Integer> hs=map.keySet();
+        
+        for(Integer i:hs)
+        {
+            if((map.get(i))>1)
+            {
+                System.out.print(i+" ");
+            }
+        }
+    }
+}
+
+class Main
+{
+    public static void main(String a[])
+    {
+        ArrayList<Integer> al=new ArrayList<>();
+        al.add(1);
+        al.add(2);
+        al.add(3);
+        al.add(2);
+        al.add(3);
+        al.add(1);
+        al.add(4);
+        al.add(5);
+        
+        ElementFrequency rd= new ElementFrequency();
+        rd.countFrequency(al);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+25.
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+class StringSorting
+{
+    public void sortElements(ArrayList<String> al)
+    {
+        Collections.sort(al);
+        
+        System.out.println(al);
+        
+        Collections.reverse(al);
+        
+        System.out.println(al);
+    }
+}
+
+class Main
+{
+    public static void main(String a[])
+    {
+        ArrayList<String> al=new ArrayList<>();
+        al.add("dbc");
+        al.add("abc");
+        al.add("cnv");
+        al.add("bmw");
+        
+        StringSorting rd= new StringSorting();
+        rd.sortElements(al);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+26.
+
+import java.util.HashSet;
+
+class Union
+{
+    public void union(HashSet<Integer> hs1,HashSet<Integer> hs2)
+    {
+        HashSet<Integer> hs=new HashSet<>();
+        hs.addAll(hs1);
+        hs.addAll(hs2);
+        
+        System.out.println(hs);
+    }
+}
+
+class Main
+{
+    public static void main(String a[])
+    {
+        HashSet<Integer> hs1=new HashSet<>();
+        hs1.add(1);
+        hs1.add(2);
+        hs1.add(3);
+        hs1.add(2);
+        
+        HashSet<Integer> hs2=new HashSet<>();
+        hs2.add(3);
+        hs2.add(4);
+        hs2.add(5);
+        hs2.add(2);
+        
+        Union rd= new Union();
+        rd.union(hs1,hs2);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+27.
+
+import java.util.PriorityQueue;
+
+public class PriorityQueueExample 
+{
+    public static void main(String[] args) 
+    {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        pq.add(30);
+        pq.add(10);
+        pq.add(50);
+        pq.add(20);
+
+        System.out.println("PriorityQueue: " + pq);
+
+        System.out.println("Peek : " + pq.peek());
+
+        System.out.println("Removed: " + pq.poll()); 
+        
+        System.out.println("After removal: " + pq);
+
+        pq.remove(20);
+        System.out.println("After removing 20: " + pq);
+
+        System.out.println("Iterating:");
+        for (Integer num : pq) 
+        {
+            System.out.println(num);
+        }
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+28.
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class DequeExample 
+{
+    public static void main(String[] args) 
+    {
+        Deque<String> deque = new ArrayDeque<>();
+
+        deque.addFirst("Apple");
+        deque.addLast("Banana");
+        deque.addFirst("Cherry");
+        deque.addLast("Date");
+
+        System.out.println(deque);
+
+        System.out.println("First element: " + deque.peekFirst());
+        System.out.println("Last element: " + deque.peekLast());
+
+        System.out.println("Removed first: " + deque.removeFirst());
+        System.out.println("Removed last: " + deque.removeLast());
+
+        System.out.println("Deque after removals: " + deque);
+
+        System.out.println("Iterating through deque:");
+        for (String item : deque) 
+        {
+            System.out.println(item);
+        }
+    }
+}
+
+
+
+Lambda Expressions                                                                                                      
+------------------------------------------------------------------------------------------------------------------------
+29.
+
+interface Add
+{
+    int addition(int a, int b);
+}
+
+public class AdditionLambda
+{
+    public static void main(String[] args)
+    {
+        Add add =(a,b) ->a+b;
+        
+        int result = add.addition(10, 20);
+        System.out.println("Sum: " + result);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+30.
+
+interface CheckNull
+{
+    boolean checkNull(String str);
+}
+
+public class AdditionLambda
+{
+    public static void main(String[] args)
+    {
+        CheckNull cn =(str) ->
+        {
+	    if(str.isEmpty())
+		return true;
+	    else
+		return false;
+	};
+        
+        boolean result = cn.checkNull("");
+        System.out.println("String is empty?\n Here is the answer: " + result);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+31.
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class StringToUpper
+{
+    public static void main(String[] args)
+    {
+        ArrayList<String> strList = new ArrayList<>(Arrays.asList("Apple", "Banana", "Oranges", "Grapes"));
+        strList.forEach(s->{
+            s=s.toUpperCase();
+        });
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+32.
+
+interface CheckPrime
+{
+    boolean checkPrime(int n);
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        CheckPrime cp=(n)->
+        {
+            int count=0;
+            for(int i=1;i<=n;i++)
+            { 
+                if(n%i==0)
+                    count++;
+            }
+            if(c==2)
+                return true;
+            else
+                return false;
+        };
+        boolean res=cp.checkPrime(14);
+        System.out.println("is number prime? : "+ res);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+33.
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Double> dblList = new ArrayList<>(Arrays.asList(10.0, 15.0, 25.0, 30.0, 50.0));
+        Operations fa=(dList)->
+        {
+            double total=0.0;
+            for (double n : dList) {
+                total += n;
+            }
+
+            return total/dList.size();
+        };
+        double res=fa.findAverage(dblList);
+        System.out.println("Average : "+ res);
+    }
+}
+interface Operations
+{
+    double findAverage(ArrayList<Double> dList);
+}
+
+
