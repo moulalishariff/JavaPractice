@@ -1196,30 +1196,32 @@ public class Main
 ------------------------------------------------------------------------------------------------------------------------
 33.
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Main
-{
-    public static void main(String[] args)
-    {
-        ArrayList<Double> dblList = new ArrayList<>(Arrays.asList(10.0, 15.0, 25.0, 30.0, 50.0));
-        Operations fa=(dList)->
-        {
-            double total=0.0;
-            for (double n : dList) {
-                total += n;
-            }
+public class Main {
+    static double computeAverage(ArrayList<Double> dList) {
+        if (dList == null || dList.isEmpty()) return 0.0;
+        double total = 0.0;
+        for (double n : dList) {
+            total += n;
+        }
+        return total / dList.size();
+    }
 
-            return total/dList.size();
-        };
-        double res=fa.findAverage(dblList);
-        System.out.println("Average : "+ res);
+    public static void main(String[] args) {
+        ArrayList<Double> dblList = new ArrayList<>(Arrays.asList(10.0, 15.0, 25.0, 30.0, 50.0));
+        Operations fa = (dList) -> computeAverage(dList);
+        double res = fa.findAverage(dblList);
+        System.out.println("Average : " + res);
     }
 }
-interface Operations
-{
+
+interface Operations {
     double findAverage(ArrayList<Double> dList);
 }
+
+
 
 
